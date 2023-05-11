@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="{% static '/css/style.css'%}">
+    <title>portfolio</title>
+</head>
+<body>
+
+
+
+    <header class="header">
+        <a href="#" class="logo">Portfolio</a>
+
+        <i class='bx bx-menu' id="menu-icon"></i>
+
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- home section -->
+{% for my in myport %}
+
+    <section class="home" id="home">
+        <div class="home-content">
+            <h3>Hello, It's Me</h3>
+            <h1>Sageer Kv</h1>
+            <h3>And I'm a <span class="multiple-text"></span></h3>
+
+            <p>{{my.home_description}}</p>
+            <div class="social-media">
+                <a href="{{my.fb_link}}"><i class='bx bxl-facebook' ></i></a>
+                <a href="{{my.insta_link}}"><i class='bx bxl-instagram' ></i></a>
+                <a href="{{my.lnkdn_link}}"><i class='bx bxl-linkedin' ></i></a>
+                <a href="{{my.gtb_link}}"><i class='bx bxl-github' ></i></a>
+                <a href="{{my.twtr_link}}"><i class='bx bxl-twitter' ></i></a>
+            </div>
+            <a href="{{my.resume.url}}" class="btn">Download CV</a>
+        </div>
+        
+        <div class="home-img">
+            <img src="{{my.home_img.url}}" alt="profile">
+        </div>
+    </section>
+
+    <!-- about section -->
+
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="{{my.about_img.url}}" alt="profile">
+        </div>
+
+        <div class="about-content">
+            <h2 class="heading">About <span>Me</span></h2>
+        
+            <h3>{{my.about_head}}</h3>
+            <p>{{my.about_description}}</p>
+            <a href="{{my.about_link}}" class="btn">Read More</a>
+        </div>
+    </section>
+
+{% endfor %}
+    <!-- services section -->
+
+    <section class="services" id="services">
+        <h2 class="heading">Our <span>Services</span></h2>
+
+        <div class="services-container">
+            <div class="services-box">
+                <i class="bx bx-code-alt"></i>
+                <h3>Web Development</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veniam corporis laboriosam cum atque, sapiente nobis
+                neque repellendus officia quasi. Qui totam laboriosam velit deserunt quia tempore magni, quae accusantium!</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+            <div class="services-box">
+                <i class="bx bxs-paint"></i>
+                <h3>Graphic Design</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veniam corporis laboriosam cum atque, sapiente nobis
+                neque repellendus officia quasi. Qui totam laboriosam velit deserunt quia tempore magni, quae accusantium!</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+            <div class="services-box">
+                <i class='bx bx-edit'></i>
+                <h3>Content Creation</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla veniam corporis laboriosam cum atque, sapiente nobis
+                neque repellendus officia quasi. Qui totam laboriosam velit deserunt quia tempore magni, quae accusantium!</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- portfolio section -->
+
+    <section class="portfolio" id="portfolio">
+        <h2 class="heading">Latest <span>Project</span></h2>
+
+        <div class="portfolio-container">
+            {% comment %} <div class="portfolio-box">
+                <img src="{{pgt.porject_img.url}}" alt="images">
+                <div class="portfolio-layer">
+                    <h4>{{pgt.porject_head}}</h4>
+                    <p>{{pgt.porject_description}}</p>
+                    <a href="{{pgt.porject_link}}"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div> {% endcomment %}
+
+            <div class="portfolio-box">
+                <img src="{% static '/images/portfolio1.jpg' %}" alt="images">
+                <div class="portfolio-layer">
+                    <h4>Hospital Management & Patient Booking system</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis enim consequuntur, debitis, cum, excepturi quas
+                    accusamus voluptatum cumque mollitia ut animi rerum sit architecto assumenda maiores nesciunt tempore nihil numquam.</p>
+                    <a href="https://github.com/sageerkv/HOSPITAL-MANAGEMENT-AND-PATIENT-BOOKING-SYSTEM.git"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+            
+            <div class="portfolio-box">
+                <img src="{% static '/images/portfolio1.jpg' %}" alt="images">
+                <div class="portfolio-layer">
+                    <h4>Crud Operation</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis enim consequuntur, debitis, cum, excepturi quas
+                    accusamus voluptatum cumque mollitia ut animi rerum sit architecto assumenda maiores nesciunt tempore nihil numquam.</p>
+                    <a href="https://github.com/sageerkv/CRUD-OPERATIONS.git"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- contact section -->
+
+    <section class="contact" id="contact">
+        <h2 class="heading">Contact <span>Me!</span></h2>
+
+        <form action="#">
+            <div class="input-box">
+                <input type="text" placeholder="Full Name">
+                <input type="email" placeholder="Email Address">
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Mobile Number">
+                <input type="text" placeholder="Email subject">
+            </div>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <input type="submit" value="Send Message" class="btn">
+        </form>
+    </section>
+
+
+    <footer class="footer">
+        <div class="footer-text">
+            <p>Copyright &copy; 2023 by Sageer Kv | All Rights Reserved.</p>
+        </div>
+
+        <div class="footer-iconTop">
+            <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" 
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" 
+    integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script src="https://unpkg.com/typed.js@2.0.15/dist/typed.umd.js"></script>
+
+    <script src="{% static '/js/script.js'%}"></script>
+
+</body>
+</html>
