@@ -1,18 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from . models import My_portfolio
+from . models import My_portfolio, Project
 # from .forms import BookingForm
 from django.contrib import messages
+from  . import models
 
 # Create your views here.
 
 def index(request):
-    dict_myport = {
-        'myport':My_portfolio.objects.all()
-    }
-    # dict_Project = {
-    #     'Project':project.objects.all()
-    # }
-    # context ={'dict_myport':dict_myport,'dict_Project':dict_Project}
-    return render(request,"index.html",dict_myport)
+    myport = models.My_portfolio.objects.all()
+    project  = models.Project.objects.all()
+    return render(request,"index.html",{'myport':myport,'project':project})
 

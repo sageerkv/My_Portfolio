@@ -8,7 +8,7 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="stylesheet" href="{% static '/css/style.css'%}">
+    <link rel="stylesheet" href="{% static '/css/portfolio.css'%}">
     <title>portfolio</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
 
 
     <header class="header">
-        <a href="#" class="logo">Portfolio</a>
+        <a href="#" class="logo">SAGEER'S Portfolio</a>
 
         <i class='bx bx-menu' id="menu-icon"></i>
 
@@ -105,39 +105,22 @@
 
 
     <!-- portfolio section -->
-
     <section class="portfolio" id="portfolio">
         <h2 class="heading">Latest <span>Project</span></h2>
 
         <div class="portfolio-container">
-            {% comment %} <div class="portfolio-box">
+            {% for pgt in project %}
+
+            <div class="portfolio-box">
                 <img src="{{pgt.porject_img.url}}" alt="images">
                 <div class="portfolio-layer">
                     <h4>{{pgt.porject_head}}</h4>
                     <p>{{pgt.porject_description}}</p>
                     <a href="{{pgt.porject_link}}"><i class='bx bx-link-external'></i></a>
                 </div>
-            </div> {% endcomment %}
-
-            <div class="portfolio-box">
-                <img src="{% static '/images/portfolio1.jpg' %}" alt="images">
-                <div class="portfolio-layer">
-                    <h4>Hospital Management & Patient Booking system</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis enim consequuntur, debitis, cum, excepturi quas
-                    accusamus voluptatum cumque mollitia ut animi rerum sit architecto assumenda maiores nesciunt tempore nihil numquam.</p>
-                    <a href="https://github.com/sageerkv/HOSPITAL-MANAGEMENT-AND-PATIENT-BOOKING-SYSTEM.git"><i class='bx bx-link-external'></i></a>
-                </div>
             </div>
             
-            <div class="portfolio-box">
-                <img src="{% static '/images/portfolio1.jpg' %}" alt="images">
-                <div class="portfolio-layer">
-                    <h4>Crud Operation</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis enim consequuntur, debitis, cum, excepturi quas
-                    accusamus voluptatum cumque mollitia ut animi rerum sit architecto assumenda maiores nesciunt tempore nihil numquam.</p>
-                    <a href="https://github.com/sageerkv/CRUD-OPERATIONS.git"><i class='bx bx-link-external'></i></a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 
