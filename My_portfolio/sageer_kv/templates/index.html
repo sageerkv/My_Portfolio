@@ -8,11 +8,108 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="stylesheet" href="{% static '/css/portfolio.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/portfolios.css'%}">
     <title>portfolio</title>
+
+    <style>
+/* message  */
+
+section.message {
+  min-height: 15vh;
+}
+
+.message {
+  background-color: #f7f6f6;
+  padding: 10px;
+  border: 1px solid #000000;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 3rem;
+  color: green;
+  text-align: center;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.messages li {
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.message-close-btn {
+  background-color: #0bd06e;
+  border: none;
+  color: #ffffff;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 9px;
+}
+
+.message-close-btn:hover {
+  background-color: #ff2b2b;
+  color: #f7f6f6;
+}
+
+/* Experience section */
+.experience {
+  background: var(--second-bg-color);
+  padding: 10rem 9% 2rem;
+}
+
+.experience-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.experience h2 {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.experience-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+}
+
+.experience-item .date {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.experience-item .position {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--main-color);
+}
+
+.experience-item .company {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.experience-item .description {
+  font-size: 1.6rem;
+  margin-top: 1rem;
+  color: var(--text-color);
+}
+
+    </style>
+    
 </head>
 <body>
-
 
 
     <header class="header">
@@ -28,6 +125,37 @@
             <a href="#contact">Contact</a>
         </nav>
     </header>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <!--message section-->
+    
+    {% if messages %}
+    <section class="message" id="message" onclick="closeMessage()">
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        <button class="message-close-btn">Close</button>
+    </section>
+
+    <script>
+        function closeMessage() {
+            var messageSection = document.getElementById('message');
+            messageSection.style.display = 'none';
+        }
+    </script>
+    {% endif %}
+
+
+
+
+    
+
 
     <!-- home section -->
 {% for my in myport %}
@@ -71,6 +199,7 @@
     </section>
 
 {% endfor %}
+
     <!-- services section -->
 
     <section class="services" id="services">
@@ -104,7 +233,37 @@
     </section>
 
 
+    <!-- experience/position section -->
+
+ <section class="experience" id="experience">
+    <h2 class="heading">Experience / <span>Position</span></h2>
+
+    <div class="experience-container">
+        <div class="experience-box">
+            <h3>Job Title 1</h3>
+            <h4>Company Name 1</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac libero euismod, lacinia metus id, feugiat mi. Sed sed turpis quis ex dapibus tristique.</p>
+            <span class="experience-date">Jan 2020 - Present</span>
+        </div>
+
+        <div class="experience-box">
+            <h3>Job Title 2</h3>
+            <h4>Company Name 2</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac libero euismod, lacinia metus id, feugiat mi. Sed sed turpis quis ex dapibus tristique.</p>
+            <span class="experience-date">Jan 2018 - Dec 2019</span>
+        </div>
+
+        <div class="experience-box">
+            <h3>Job Title 3</h3>
+            <h4>Company Name 3</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac libero euismod, lacinia metus id, feugiat mi. Sed sed turpis quis ex dapibus tristique.</p>
+            <span class="experience-date">Jan 2016 - Dec 2017</span>
+        </div>
+    </div>
+</section>
+
     <!-- portfolio section -->
+
     <section class="portfolio" id="portfolio">
         <h2 class="heading">Latest <span>Project</span></h2>
 
@@ -129,21 +288,24 @@
 
     <section class="contact" id="contact">
         <h2 class="heading">Contact <span>Me!</span></h2>
-
-        <form action="#">
+    
+        <form method="POST" action="{% url 'contact_submit' %}">
+            {% csrf_token %}
             <div class="input-box">
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Email Address">
+                <input type="text" name="full_name" placeholder="Full Name">
+                <input type="email" name="email" placeholder="Email Address">
             </div>
             <div class="input-box">
-                <input type="number" placeholder="Mobile Number">
-                <input type="text" placeholder="Email subject">
+                <input type="tel" name="mobile_number" placeholder="Mobile Number">
+                <input type="text" name="subject" placeholder="Email subject">
             </div>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <textarea name="message" cols="30" rows="10" placeholder="Message"></textarea>
             <input type="submit" value="Send Message" class="btn">
         </form>
     </section>
+    
 
+    <!-- footer section -->
 
     <footer class="footer">
         <div class="footer-text">
@@ -165,7 +327,7 @@
 
     <script src="https://unpkg.com/typed.js@2.0.15/dist/typed.umd.js"></script>
 
-    <script src="{% static '/js/script.js'%}"></script>
+    <script src="{% static '/js/scripts.js'%}"></script>
 
 </body>
 </html>

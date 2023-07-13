@@ -74,6 +74,9 @@ section {
     display: none;
 }
 
+
+/* home section */
+
 .home {
     display: flex;
     justify-content: center;
@@ -158,6 +161,9 @@ span {
     box-shadow: none;
 }
 
+
+/* about section */
+
 .about {
     display: flex;
     justify-content: center;
@@ -189,6 +195,9 @@ span {
     margin: 2rem 0 3rem;
 }
 
+
+/* services section */
+
 .services h2 {
     margin-bottom: 5rem;
 }
@@ -203,7 +212,7 @@ span {
 
 .services-container .services-box {
     flex: 1 1 30rem;
-    background: var(--second-bg-color);
+    background: var(--bg-color);
     padding: 3rem 2rem 4rem;
     border-radius: 2rem;
     text-align: center;
@@ -229,8 +238,11 @@ span {
     margin: 1rem 0 3rem;
 }
 
+
+/*  portfolio section */
+
 .portfolio {
-    background: var(--second-bg-color);
+    background: var(--bg-color);
 }
 
 .portfolio h2 {
@@ -247,7 +259,7 @@ span {
 .portfolio-container .portfolio-box {
     position: relative;
     border-radius: 2rem;
-    box-shadow: 0 0 1rem var(--bg-color);
+    box-shadow: 0 0 1rem var(--second-bg-color);
     overflow: hidden;
     display: flex;
 }
@@ -308,6 +320,8 @@ span {
     color: var(--second-bg-color);
 }
 
+/* contact section */
+
 .contact h2{
     margin-bottom: 3rem;
 }
@@ -348,6 +362,9 @@ span {
     margin-top: 2rem;
     cursor: pointer;
 }
+
+
+/* footer section  */
 
 .footer {
     display: flex;
@@ -518,3 +535,6 @@ span {
         margin-top: 2rem;
     }
 }
+
+
+  
