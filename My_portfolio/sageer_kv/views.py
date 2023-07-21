@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from . models import My_portfolio, Project
+from . models import My_portfolio, Project, Service, Experience, Skill
 # from .forms import BookingForm
 from django.contrib import messages
-from  . import models
+from  . import models 
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -13,7 +13,11 @@ from django.conf import settings
 def index(request):
     myport = models.My_portfolio.objects.all()
     project  = models.Project.objects.all()
-    return render(request,"index.html",{'myport':myport,'project':project})
+    services = models.Service.objects.all()
+    experiences = Experience.objects.all()
+    skills_list = Skill.objects.all()
+    context = {'myport':myport,'project':project,'services': services, 'experiences': experiences, 'skills_list': skills_list}
+    return render(request,"index.html", context)
 
 def contact_submit(request):
     if request.method == 'POST':
