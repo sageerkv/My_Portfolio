@@ -5,7 +5,7 @@ from . models import My_portfolio, Project, Service, Experience, Skill
 from django.contrib import messages
 from  . import models 
 
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.conf import settings
 
 # Create your views here.
@@ -19,6 +19,10 @@ def index(request):
     context = {'myport':myport,'project':project,'services': services, 'experiences': experiences, 'skills_list': skills_list}
     return render(request,"index.html", context)
 
+
+
+MAX_ALLOWED_FILE_SIZE_IN_BYTES = 10 * 1024 * 1024  # 10 MB (adjust the value as needed)
+
 def contact_submit(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -26,24 +30,45 @@ def contact_submit(request):
         mobile_number = request.POST.get('mobile_number')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
+        attachment = request.FILES.get('attachment')  # Get the uploaded file
+
+        # Basic form validation
+        if not full_name or not email or not message:
+            messages.error(request, "Please fill in all required fields (Full Name, Email, Message).")
+            return redirect('index')
+
+        # Check file size
+        if attachment:
+            file_size_bytes = attachment.size
+            if file_size_bytes > MAX_ALLOWED_FILE_SIZE_IN_BYTES:
+                max_allowed_size_mb = MAX_ALLOWED_FILE_SIZE_IN_BYTES / (1024 * 1024)
+                messages.error(request, f"File size exceeds the allowed limit. Maximum allowed size is {max_allowed_size_mb:.2f} MB.")
+                return redirect('index')
 
         # Compose email message
+        email_subject = 'Contact Form Submission'
         email_message = f"Full Name: {full_name}\n"
         email_message += f"Email: {email}\n"
         email_message += f"Mobile Number: {mobile_number}\n"
         email_message += f"Subject: {subject}\n"
         email_message += f"Message: {message}"
 
-        # Send email
-        send_mail(
-            'Contact Form Submission',
+        # Create an EmailMessage object
+        email = EmailMessage(
+            email_subject,
             email_message,
             settings.DEFAULT_FROM_EMAIL,
             [settings.DEFAULT_FROM_EMAIL],
-            fail_silently=False,
         )
 
-        # Optionally, you can add a success message or redirect to a thank you page
+        # Attach the file to the email, if provided
+        if attachment:
+            email.attach(attachment.name, attachment.read(), attachment.content_type)
+
+        # Send the email
+        email.send()
+
+        # Add a success message
         messages.success(request, f"Dear {full_name}, Your message has been sent! Thank you.")
         return redirect('index')
 
@@ -51,5 +76,10 @@ def contact_submit(request):
     myport = My_portfolio.objects.all()
     project = Project.objects.all()
     return render(request, 'index.html', {'myport': myport, 'project': project})
+
+
+
+
+
 
 

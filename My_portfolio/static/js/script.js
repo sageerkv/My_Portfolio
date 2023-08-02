@@ -60,3 +60,4 @@ const typed = new Typed('.multiple-text', {
     backDelay: 100,
     loop: true
 });
+  

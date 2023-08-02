@@ -8,7 +8,7 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/styles.css'%}">
     <title>portfolio</title>
 
     <style>
@@ -123,81 +123,74 @@
         }
 
         /* Skills Section */
-        
-        .skills {
-            padding: 10rem 0;
-            background-color: var(--second-bg-color);
-            min-height: 25vh;
-        }
 
-        .skills .heading {
-            text-align: center;
-            font-size: 3.6rem;
-            font-weight: 700;
-            color: #1f242d;
-            margin-bottom: 2rem;
+        .skills {
+        padding: 50px 0;
+        overflow: hidden;
+        background-color: var(--second-bg-color);
+        min-height: 25vh;
         }
 
         .skills-container {
-            display: flex;
-            flex-wrap: nowrap; /* Set flex-wrap to nowrap to keep all items in one row */
-            justify-content: flex-start; /* Adjust justify-content to flex-start */
-            gap: 3rem;
-            overflow: hidden;
-            animation: scrollSkills 20s linear infinite;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        animation: scrollSkills 20s linear infinite; 
         }
 
         .skill-item {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        width: 150px;
+        margin: 20px;
+        text-align: center;
         }
 
         .skill-item img {
-            width: 10rem;
-            height: 10rem;
-            margin-bottom: 1rem;
-            border-radius: 50%;
-            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
-            transition: opacity 0.3s ease-in-out, transform 0.6s ease-in-out;
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
         }
-
         .skill-item span {
-            font-size: 2rem;
-            color: #1f242d;
-            font-weight: 600;
-            margin-top: 0.5rem;
-        }
-
+        font-size:2rem;
+        color: #1f242d;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        text-align: center;
+            }
         /* Skill Item Animation on Hover */
         .skill-item:hover {
             opacity: 1;
             transform: scale(1.1);
         }
 
-        /* Skills Container Animation */
-        @keyframes scrollSkills {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(calc(-13rem * 10));
-            }
+        /* Responsive styles (unchanged) */
+        @media screen and (max-width: 768px) {
+        .skills-container {
+            justify-content: space-around;
+        }
         }
 
-        /* Media Query to Adjust Flexbox on Smaller Screens */
-        @media screen and (max-width: 768px) {
-            .skills-container {
-                justify-content: flex-start;
-                gap: 2rem;
-            }
-            .skill-item {
-                flex: 0 0 calc(50% - 3rem);
-                margin-bottom: 2rem;
-            }
+        @media screen and (max-width: 480px) {
+        .skill-item {
+            width: 120px;
+            margin: 10px;
         }
+
+        .skill-item img {
+            width: 80px;
+            height: 80px;
+        }
+        }
+              /* Keyframes for the scrolling animation */
+        @keyframes scrollSkills {
+        0% {
+            transform: translateX(0); 
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+        }
+
+
 
     </style>
     
@@ -216,6 +209,7 @@
             <a href="#services">Offerings</a>
             <a href="#experience">Experience</a>
             <a href="#portfolio">Portfolio</a>
+            <a href="#skills">Skills</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
@@ -277,13 +271,12 @@
         <div class="about-img">
             <img src="{{my.about_img.url}}" alt="profile">
         </div>
-
+    
         <div class="about-content">
             <h2 class="heading"><span>About</span> Me</h2>
-        
             <h3>{{my.about_head}}</h3>
             <p>{{my.about_description|safe}}</p>
-            <a href="{{my.about_link}}" class="btn">Read More</a>
+            <!-- <a href="#" class="btn" id="read-more-btn">Read More</a> -->
         </div>
     </section>
 
@@ -348,7 +341,6 @@
 
     <!-- skills -->
 
-    <!-- skills.html -->
     <section class="skills" id="skills">
         <h2 class="heading"><span>S</span>kills</h2>
         <div class="skills-container">
@@ -365,9 +357,8 @@
     <!-- contact section -->
 
     <section class="contact" id="contact">
-        <h2 class="heading">Contact <span>Me!</span></h2>
-    
-        <form method="POST" action="{% url 'contact_submit' %}">
+        <h2 class="heading"><span>Contact </span>Me!</h2>
+        <form method="POST" action="{% url 'contact_submit' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="input-box">
                 <input type="text" name="full_name" placeholder="Full Name">
@@ -378,9 +369,13 @@
                 <input type="text" name="subject" placeholder="Email subject">
             </div>
             <textarea name="message" cols="30" rows="10" placeholder="Message"></textarea>
+            <div class="input-box">
+                <input type="file" name="attachment">
+            </div>
             <input type="submit" value="Send Message" class="btn">
         </form>
     </section>
+    
     
 
     <!-- footer section -->
@@ -399,7 +394,7 @@
     
         document.getElementById("currentYear").innerText = currentYear;
     </script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" 
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
@@ -410,7 +405,7 @@
 
     <script src="https://unpkg.com/typed.js@2.0.15/dist/typed.umd.js"></script>
 
-    <script src="{% static '/js/scripts.js'%}"></script>
+    <script src="{% static '/js/script.js'%}"></script>
 
 </body>
 </html>

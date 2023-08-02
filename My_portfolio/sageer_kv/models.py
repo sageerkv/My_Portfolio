@@ -20,7 +20,6 @@ class My_portfolio(models.Model):
     about_img = models.ImageField(upload_to='uploads/', max_length=100)
     about_head = models.TextField()
     about_description = models.TextField()
-    about_link = models.URLField(max_length=128, db_index=True, unique=True, blank=True)
     
     def __str__(self):
         return self.home_description
